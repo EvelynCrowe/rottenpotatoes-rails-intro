@@ -8,6 +8,7 @@
   <link rel="../stylesheets" href="application.css">
 </head>
 
+
 <% = form_tag movies_path, :method => :get, id='ratings_form' do %>
   <%Include: %>
 <%- @all_ratings.each do |rating| %>
