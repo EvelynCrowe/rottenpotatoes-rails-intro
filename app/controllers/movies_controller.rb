@@ -8,8 +8,10 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.order(params[:sort_param])
+    session[:sort_param] = params[:sort_param]
     @all_ratings = %w(G PG PG-13 R)
     @selected_ratings = params[:ratings]
+    session[:selected_ratings] = @selected_ratings
      
     if params[:sort_param] == 'title'
       @title_header = 'hilite'
@@ -44,6 +46,7 @@ class MoviesController < ApplicationController
   def destroy
     @movie = Movie.find(params[:id])
     @movie.destroy
+    session.clear
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
   end
