@@ -11,12 +11,19 @@ class MoviesController < ApplicationController
     session[:sort_param] = params[:sort_param]
     @all_ratings = %w(G PG PG-13 R)
     @selected_ratings = params[:ratings]
-    session[:selected_ratings] = @selected_ratings
+    session[:ratings] = @selected_ratings
      
     if params[:sort_param] == 'title'
       @title_header = 'hilite'
     elsif params[:sort_param] == 'release_date'
       @release_date_header ='hilite'
+    end
+    
+    if (params[:sort_param] != session[:sort_param]) or (params[:ratings] != session[:ratings]) 
+      session[:sort_param] = params[:sort_param]
+      session[:ratings] = @selected_ratings
+      redirect_to :sort => params[:sort], :ratings => @selected_ratings
+      return
     end
     
     @movies = Movie.where(rating: @selected_ratings)
