@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     @movies = Movie.order(params[:sort_param])
     @all_ratings = %w(G PG PG-13 R)
     @selected_ratings = params[:ratings]
-    
+     
     if params[:sort_param] == 'title'
       @title_header = 'hilite'
     elsif params[:sort_param] == 'release_date'
